@@ -3,16 +3,10 @@ const body = require('body-parser');
 
 const app = express();
 
-
 app
     .use('/', express.static('./public'))
     .use(body.json())
-    .use('/headers', (req, res, next) => {
-        console.log(req.headers);
-
-        res.status(404);
-        res.send('test');
+    .get('/test-heroku', (req, res, next) => {
+        res.json({'name': 'cursor'});
     })
-    .listen(3434, () => {
-        console.log('PORT: 3434');
-    });
+    .listen(3434)
