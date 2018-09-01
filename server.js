@@ -1,13 +1,17 @@
-const http = require('http');
-const url = require('url');
+const express = require('express');
+const body = require('body-parser');
 
-http.createServer((req, res) => {
+const app = express();
 
-    console.log( url.parse(req.url, true).query ); // query
 
-    req.on('data', (data) => {
-        console.log(JSON.parse(data));
-    })
+app.use(body.json())
+app.use((req, res) => {
+    console.log(req.query);
+    console.log(req.body.name);
+
+    // req.on('data', (file) => {
+    //     console.log(file.toString());
+    // })
 }).listen(3434, () => {
     console.log('PORT: 3434');
 })
