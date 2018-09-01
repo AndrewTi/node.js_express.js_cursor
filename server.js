@@ -9,4 +9,4 @@ app
     .get('/test-heroku', (req, res, next) => {
         res.json({'name': 'cursor'});
     })
-    .listen(3434)
+    .listen(process.env.PORT || 3434);
