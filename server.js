@@ -6,48 +6,26 @@ const app = express();
 
 app
     .use(body.json())
-    .param('id', (req, res, next, id) => {
+    .use((req, res, next) => {
+        // http://localhost:3434/?name=cursor&id=123123
+        let { name, id } = req.query;
 
-        const user = query('SELECT * FROM users WHERE id =' + id, (err, user) => {
+        name = name + ': test';
+        id = id + ': 132';
 
-            if(err)
-                return res.json('500');
+        // console.log(name, id);
 
+        req._name = name;
+        req._id = id;
 
-            if(!user)
-                return res.status(404);
-
-            req._user = user;
-            next();
-        });
-        
-
-        // bad code
-        req._user = 'test';
-        next();
-
+        next(); // next({err: true, message: 'err'});
     })
-    .get('user/:id', (req, res) => {
-        req._user;
+    .use((req, res, next) => {
+        console.log(req._name, req._id);
     })
-    .post('user/:id')
-    .put('user/:id')
-    .delete('user/:id')
-    .get('/test/name/', (req, res) => {
-        console.log("GET:", req.query);
-    })
-    .post('/test', (req, res) => {
-        console.log("POST:", req.body);
-    })
-    .get('/test/:name/:id/', (req, res) => {
-        console.log(req.params, req.query, req._user);
-
+    .use((err, req, res, next) => {
+        console.log(err);
     })
     .listen(3434, () => {
-    console.log('PORT: 3434');
-})
-
-// user
-// user/:id
-
-// http://localhost:3434/test/dfhs5heh534/34234234
+        console.log("PORT : 3434");
+    });
