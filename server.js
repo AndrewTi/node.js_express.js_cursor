@@ -5,6 +5,7 @@ const app = express();
 
 
 app
+    .use('/', express.static('./public'))
     .use(body.json())
     .use((req, res, next) => {
         // http://localhost:3434/?name=cursor&id=123123
