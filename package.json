@@ -5,13 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "pm2 start server.js --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "1.18.3",
-    "express": "4.16.3"
+    "express": "4.16.3",
+    "nodemon": "1.18.4"
   }
 }
