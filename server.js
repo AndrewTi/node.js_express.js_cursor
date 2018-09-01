@@ -1,32 +1,13 @@
-const fs = require('fs');
+const http = require('http');
+const url = require('url');
 
-fs.readFile('./file.log', (err, file) => {
-    console.log(err, file.toString());
+http.createServer((req, res) => {
+
+    console.log( url.parse(req.url, true).query ); // query
+
+    req.on('data', (data) => {
+        console.log(JSON.parse(data));
+    })
+}).listen(3434, () => {
+    console.log('PORT: 3434');
 })
-
-fs.appendFile('./append.log', 'Hello append', (err) => {
-    console.log(err)
-})
-
-fs.appendFile('./append2.log', 'Hello append', (err) => {
-    console.log(err)
-})
-
-fs.stat('./file.log', (err, info) => {
-    console.log(info);
-})
-
-fs.unlink('./append2.log', (err) => {
-    console.log(err);
-})
-
-fs.mkdir('./test2', (err, info) => {
-    console.log(err, info);
-})
-
-fs.rename('./append.log', './test/file2.log', (err, info) => {
-    console.log(err, info);
-})
-
-
-fs.readFileSync('./append3.log');
